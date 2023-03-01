@@ -2,16 +2,16 @@ import { useContext } from 'react';
 import { GameContext } from '../../contexts';
 import './Cell.css';
 
-export const Cell = ({ value, coords, board }) => {
-	const { turn, setPlays, plays } = useContext(GameContext);
-	const { row, column } = coords;
-	const currentValue = board[row][column];
+export const Cell = ({ value, index, board, setBoard }) => {
+	const { turn, gameOver, setPlays, plays } = useContext(GameContext);
+	const currentValue = board[index];
 
 	const handleClick = () => {
-		if (!currentValue) {
+		if (!currentValue && !gameOver) {
 			const newBoard = [...board];
-			newBoard[row][column] = turn;
+			newBoard[index] = turn;
 			setPlays(plays + 1);
+			setBoard(newBoard);
 		}
 	};
 

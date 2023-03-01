@@ -1,101 +1,92 @@
 import './Board.css';
 import { Cell } from '..';
-import { XwinningResults, OwinningResults } from '../../data/results';
+import { lines } from '../../data/lines';
 import { useContext, useEffect, useState } from 'react';
 import { GameContext } from '../../contexts';
 
 export const Board = ({ winner, setWinner }) => {
 	const { gameOver, turn, plays } = useContext(GameContext);
-	const [board, setBoard] = useState([
-		['', '', ''],
-		['', '', ''],
-		['', '', ''],
-	]);
-
-	function checkResult(results) {
-		results.map((result) => {
-			console.log(result, board);
-			console.log(result === board);
-			console.log(turn);
-			if (result === board) {
-				setWinner(turn);
-			}
-		});
-	}
+	const [board, setBoard] = useState(['', '', '', '', '', '', '', '', '']);
 
 	function checkWinner() {
-		if (turn === 'O') {
-			checkResult(OwinningResults);
-		} else {
-			checkResult(XwinningResults);
+		let i = 0;
+		for (i; i <= lines.length - 1; i++) {
+			const [a, b, c] = lines[i];
+			if (turn === board[a] && turn === board[b] && turn === board[c]) {
+				setWinner(turn);
+			}
 		}
 
-		if ((winner === '') & (plays === 9)) {
-			setWinner(true);
+		if (!winner && plays === 9) {
+			setWinner('Draw');
 		}
 	}
 
 	useEffect(() => {
-		console.log(plays);
 		checkWinner();
-	}, [plays]);
+	}, [board]);
 
 	useEffect(() => {
 		if (gameOver) {
-			setBoard([
-				['', '', ''],
-				['', '', ''],
-				['', '', ''],
-			]);
+			setBoard(['', '', '', '', '', '', '', '', '']);
 		}
 	}, [gameOver]);
 
 	return (
 		<div className='board'>
 			<Cell
-				value={board[0][0]}
-				coords={{ row: 0, column: 0 }}
+				value={board[0]}
+				index={0}
 				board={board}
+				setBoard={setBoard}
 			/>
 			<Cell
-				value={board[0][1]}
-				coords={{ row: 0, column: 1 }}
+				value={board[1]}
+				index={1}
 				board={board}
+				setBoard={setBoard}
 			/>
 			<Cell
-				value={board[0][2]}
-				coords={{ row: 0, column: 2 }}
+				value={board[2]}
+				index={2}
 				board={board}
+				setBoard={setBoard}
 			/>
 			<Cell
-				value={board[1][0]}
-				coords={{ row: 1, column: 0 }}
+				value={board[3]}
+				index={3}
 				board={board}
+				setBoard={setBoard}
 			/>
 			<Cell
-				value={board[1][1]}
-				coords={{ row: 1, column: 1 }}
+				value={board[4]}
+				index={4}
 				board={board}
+				setBoard={setBoard}
 			/>
 			<Cell
-				value={board[1][2]}
-				coords={{ row: 1, column: 2 }}
+				value={board[5]}
+				index={5}
 				board={board}
+				setBoard={setBoard}
 			/>
 			<Cell
-				value={board[2][0]}
-				coords={{ row: 2, column: 0 }}
+				value={board[6]}
+				index={6}
 				board={board}
+				setBoard={setBoard}
 			/>
 			<Cell
-				value={board[2][1]}
-				coords={{ row: 2, column: 1 }}
+				value={board[7]}
+				index={7}
 				board={board}
+				setBoard={setBoard}
 			/>
 			<Cell
-				value={board[2][2]}
-				coords={{ row: 2, column: 2 }}
+				value={board[8]}
+				index={8}
 				board={board}
+				setBoard={setBoard}
 			/>
 		</div>
 	);
