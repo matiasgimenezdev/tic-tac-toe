@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { GameContext } from '../../contexts';
 import './Cell.css';
 
-export const Cell = ({ value, index, board, setBoard }) => {
+export const Cell = ({ value, index, board, setBoard, cells }) => {
 	const { turn, gameOver, setPlays, plays } = useContext(GameContext);
 	const currentValue = board[index];
 
@@ -16,7 +16,10 @@ export const Cell = ({ value, index, board, setBoard }) => {
 	};
 
 	return (
-		<div className='cell' onClick={handleClick}>
+		<div
+			className={`cell ${cells.includes(index) ? 'active' : ''}`}
+			onClick={handleClick}
+		>
 			{value}
 		</div>
 	);

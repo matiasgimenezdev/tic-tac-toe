@@ -29,3 +29,22 @@ html {
 .title {
 	font-size: 48px;
 }
+
+.winner {
+	font-size: 48px;
+	color: #022252;
+	text-align: center;
+	display: block;
+	width: 100%;
+	background-color: white;
+}
+
+.restart {
+	background-color: white;
+	width: 120px;
+	height: 48px;
+	color: #022252;
+	font-size: 24px;
+	border: none;
+	outline: none;
+}
