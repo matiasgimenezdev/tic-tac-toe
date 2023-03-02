@@ -18,8 +18,7 @@ export const Board = ({ winner, setWinner }) => {
 			}
 		}
 
-		if (!winner && plays === 9) {
-			console.log(plays, winner);
+		if (cells.length !== 0 && plays === 9) {
 			setWinner('Draw');
 		}
 	}
