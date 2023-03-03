@@ -3,9 +3,10 @@ import { Cell } from '..';
 import { lines } from '../../data/lines';
 import { useContext, useEffect, useState } from 'react';
 import { GameContext } from '../../contexts';
+import { types } from '../../types';
 
-export const Board = ({ winner, setWinner }) => {
-	const { turn, plays } = useContext(GameContext);
+export const Board = () => {
+	const { turn, plays, dispatch } = useContext(GameContext);
 	const [board, setBoard] = useState(['', '', '', '', '', '', '', '', '']);
 	const [cells, setCells] = useState([]);
 
@@ -13,13 +14,10 @@ export const Board = ({ winner, setWinner }) => {
 		for (let i = 0; i <= lines.length - 1; i++) {
 			const [a, b, c] = lines[i];
 			if (turn === board[a] && turn === board[b] && turn === board[c]) {
-				setWinner(turn);
+				const action = { type: types.setWinner, payload: turn };
+				dispatch(action);
 				setCells([a, b, c]);
 			}
-		}
-
-		if (cells.length !== 0 && plays === 9) {
-			setWinner('Draw');
 		}
 	}
 
@@ -29,10 +27,10 @@ export const Board = ({ winner, setWinner }) => {
 	}, [board]);
 
 	useEffect(() => {
-		if (!winner) {
+		if (plays === 0) {
 			setBoard(['', '', '', '', '', '', '', '', '']);
 		}
-	}, [winner]);
+	}, [plays]);
 
 	return (
 		<div className='board'>

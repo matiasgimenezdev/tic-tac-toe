@@ -1,16 +1,19 @@
 import { useContext } from 'react';
 import { GameContext } from '../../contexts';
+import { types } from '../../types';
+
 import './Cell.css';
 
 export const Cell = ({ value, index, board, setBoard, cells }) => {
-	const { turn, gameOver, setPlays, plays } = useContext(GameContext);
+	const { turn, winner, plays, dispatch } = useContext(GameContext);
 	const currentValue = board[index];
 
 	const handleClick = () => {
-		if (!currentValue && !gameOver) {
+		if (!currentValue && !winner) {
 			const newBoard = [...board];
 			newBoard[index] = turn;
-			setPlays(plays + 1);
+			const action = { type: types.updatePlays, payload: plays + 1 };
+			dispatch(action);
 			setBoard(newBoard);
 		}
 	};

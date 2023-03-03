@@ -30,6 +30,14 @@ html {
 	font-size: 48px;
 }
 
+.turn {
+	font-size: 48px;
+	text-align: center;
+	display: block;
+	width: 100%;
+	color: white;
+}
+
 .winner {
 	font-size: 48px;
 	color: #022252;
